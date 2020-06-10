@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <%- include('partials/sidenav') %>
+      <!-- Sidebar Nav Ends -->
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <%- include('partials/header') %>
+
+        <div class="container">
+            <h3>Members</h3>
+            <table class="table table-hover table-responsive-md">
+              <thead>
+                <tr>
+                  <th scope="col">Firstname</th>
+                  <th scope="col">Lastname</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Cellphone</th>
+                  <th>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/add">add member</a>
+                      </button>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>0125121</td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">view</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/form/1">c19</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">delete</a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Jacob</td>
+                  <td>Thornton</td>
+                  <td>@fat</td>
+                  <td>0125121</td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">view</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/form/1">c19</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">delete</a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Larry</td>
+                  <td>Bird</td>
+                  <td>@twitter</td>
+                  <td>0125121</td>
+                  <td>
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">view</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/form/1">c19</a>
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        <a href="/member/1">delete</a>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+
+        
+    
+        <%- include('partials/footer') %>
+
+      </div>
+      <!-- Page Content Holder Ends -->
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+
+
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+    });
+  </script>
+</html>

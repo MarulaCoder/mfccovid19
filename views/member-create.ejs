@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <%- include('partials/sidenav') %>
+      <!-- Sidebar Nav Ends -->
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <%- include('partials/header') %>
+
+        <section name="jumbotron" >
+          <div class="jumbotron text-center">
+              <h1>Member Add Form</h1>
+              <p>Please complete and submit</p>
+          </div>
+        </section>
+  
+        <div class="container">
+          <form action="/member/add/new" method="post" class="needs-validation" novalidate>
+            <div class="form-row">
+              <div class="col-md-3 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Name" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="middlename">Middle name</label>
+                <input type="text" class="form-control" id="middlename" placeholder="Middlename" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Surname" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">Email</label>
+                <input type="text" class="form-control" id="email" placeholder="Email" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Cellphone</label>
+                <input type="text" class="form-control" id="cellphone" placeholder="Cellphone" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-2 mb-2">
+                <label for="firstName">Street Number</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Street Number" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <label for="middlename">Street Name</label>
+                <input type="text" class="form-control" id="middlename" placeholder="Street Name" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-2 mb-2">
+                <label for="firstName">Unit Number</label>
+                <input type="text" class="form-control" id="unitnumber" placeholder="Unit Number" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-4">
+                <label for="middlename">Complex</label>
+                <input type="text" class="form-control" id="complex" placeholder="Complex" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-md-3 mb-3">
+                <label for="suburb">Suburb</label>
+                <input type="text" class="form-control" id="suburb" placeholder="Suburb" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" placeholder="City" required>
+                <div class="invalid-feedback">
+                  Please provide a valid city.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="province">Province</label>
+                <select class="custom-select" id="province" required>
+                  <option selected disabled value="">Choose...</option>
+                  <option>Gauteng</option>
+                  <option>Limpopo</option>
+                  <option>Mpumalanga</option>
+                  <option>North West</option>
+                </select>
+                <div class="invalid-feedback">
+                  Please select a valid state.
+                </div>
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="code">Code</label>
+                <input type="text" class="form-control" id="code" placeholder="Code" required>
+                <div class="invalid-feedback">
+                  Please provide a valid zip.
+                </div>
+              </div>
+            </div>
+        
+            <!-- // Add Extra Fields // -->
+
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </form>
+        </div>
+
+        <%- include('partials/footer') %>
+
+      </div>
+      <!-- Page Content Holder Ends -->
+
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      debugger;
+      //toogle sidebar
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      //on single tweet
+      $('#isOnceOffTweet').change(() => {
+        if($('#isOnceOffTweet').is(":checked"))
+        {
+          $('#filename').attr('disabled', true);
+          $("#filename").val('');
+        }
+        else
+        {
+          $('#filename').attr('disabled', false);
+        }
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <%- include('partials/head') %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <!-- Sidebar Holder -->
+      <%- include('partials/sidenav') %>
+      <!-- Sidebar Nav Ends -->
+
+      <!-- Page Content Holder -->
+      <div id="content">
+        <%- include('partials/header') %>
+
+        <section name="jumbotron" >
+          <div class="jumbotron text-center">
+              <h1>Member Details</h1>
+          </div>
+        </section>
+  
+        <div class="container">
+          
+        </div>
+
+        <%- include('partials/footer') %>
+
+      </div>
+      <!-- Page Content Holder Ends -->
+
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      debugger;
+      //toogle sidebar
+      $('#sidebarCollapse').on('click', function() {
+        $('#sidebar, #content').toggleClass('active');
+        $('.collapse.in').toggleClass('in');
+        $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      //on single tweet
+      $('#isOnceOffTweet').change(() => {
+        if($('#isOnceOffTweet').is(":checked"))
+        {
+          $('#filename').attr('disabled', true);
+          $("#filename").val('');
+        }
+        else
+        {
+          $('#filename').attr('disabled', false);
+        }
+      });
+    });
+  </script>
+</html>

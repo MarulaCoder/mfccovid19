@@ -1,0 +1,27 @@
+<!-- views/partials/footer.ejs -->
+
+<section>
+    <div class="push"></div>
+
+    <!-- Footer -->
+    <footer id="sticky-footer" class="py-4 bg-primary text-white-50 container-fluid footer">
+
+        <!-- Copyright -->
+        <div class="container text-center">
+            <ul class="list-unstyled list-inline social text-center">
+                <li class="list-inline-item"><a href="/"><i class="fab fa-facebook"></i></a></li>
+                <li class="list-inline-item"><a href="/"><i class="fab fa-twitter"></i></a></li>
+                <li class="list-inline-item"><a href="/"><i class="fab fa-instagram"></i></a></li>
+                <li class="list-inline-item"><a href="/"><i class="fab fa-youtube"></i></a></li>
+                <li class="list-inline-item"><a href="mailto:info@mfc.co.za" target="_blank"><i class="fa fa-envelope"></i></a></li>
+            </ul>
+
+            <% let year = (new Date()).getFullYear() %>
+            <small>Copyright &copy; <%= year %> <a href="/">mfc.co.za</a></small>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+</section>
+

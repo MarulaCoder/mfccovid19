@@ -1,0 +1,161 @@
+<form action="/covid19/submit" method="post" class="needs-validation" novalidate>
+    <div class="form-row">
+      <div class="col-md-3 mb-3">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Name" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="middlename">Middle name</label>
+        <input type="text" class="form-control" id="middlename" placeholder="Middlename" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Surname" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="firstName">Email</label>
+        <input type="text" class="form-control" id="email" placeholder="Email" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <label for="lastName">Cellphone</label>
+        <input type="text" class="form-control" id="cellphone" placeholder="Cellphone" required>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" placeholder="City" required>
+        <div class="invalid-feedback">
+          Please provide a valid city.
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="province">Province</label>
+        <select class="custom-select" id="province" required>
+          <option selected disabled value="">Choose...</option>
+          <option>Gauteng</option>
+          <option>Limpopo</option>
+          <option>Mpumalanga</option>
+          <option>North West</option>
+        </select>
+        <div class="invalid-feedback">
+          Please select a valid state.
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="code">Code</label>
+        <input type="text" class="form-control" id="code" placeholder="Code" required>
+        <div class="invalid-feedback">
+          Please provide a valid zip.
+        </div>
+      </div>
+    </div>
+
+    <!-- // Add Extra Fields // -->
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q1">Have you travelled in the last 7 days*</label>
+          <select class="custom-select" id="covid19Q1" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q2">Did you attend a funeral in the last 7 days*</label>
+          <select class="custom-select" id="covid19Q2" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q3">Have you been in contact with a COVID-19 patient*</label>
+          <select class="custom-select" id="covid19Q3" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q4">Have you visited a doctor or hospital in the last 7 days*</label>
+          <select class="custom-select" id="covid19Q4" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q5">Have you tested for COVID-19 in the last 7 days*</label>
+          <select class="custom-select" id="covid19Q5" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="covid19Q6">Is anyone in your family affected with COVID-19*</label>
+          <select class="custom-select" id="covid19Q6" required>
+            <option selected disabled value="">Choose...</option>
+            <option>Yes</option>
+            <option>No</option>
+          </select>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+        </div>
+      </div>
+
+    <!-- // Add Extra Fields // -->
+
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="agreeTerms" required>
+        <label class="form-check-label" for="agreeTerms">
+          Agree to terms and conditions
+        </label>
+        <div class="invalid-feedback">
+          You must agree before submitting.
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit Questionaire</button>
+  </form>

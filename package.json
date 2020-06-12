@@ -25,6 +25,7 @@
     "express-validator": "^6.5.0",
     "helmet": "^3.22.0",
     "http-errors": "^1.7.3",
+    "memjs": "^1.2.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "pg": "^8.2.1",

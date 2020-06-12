@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('Address', {
     streetnumber: DataTypes.STRING,

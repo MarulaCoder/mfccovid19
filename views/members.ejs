@@ -32,63 +32,29 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>0125121</td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">view</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/form/1">c19</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">delete</a>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                  <td>0125121</td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">view</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/form/1">c19</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">delete</a>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Larry</td>
-                  <td>Bird</td>
-                  <td>@twitter</td>
-                  <td>0125121</td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">view</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/form/1">c19</a>
-                      </button>
-                      <button type="button" class="btn btn-primary">
-                        <a href="/member/1">delete</a>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                <% if (memberResult.length) { %>
+                    <% memberResult.forEach((member) => { %>
+                        <tr>
+                          <td><%= member.firstname %></td>
+                          <td><%= member.lastname %></td>
+                          <td><%= member.email %></td>
+                          <td><%= member.cellphone %></td>
+                          <td>
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                              <button type="button" class="btn btn-primary">
+                                <a href="/member/1">view</a>
+                              </button>
+                              <button type="button" class="btn btn-primary">
+                                <a href="/member/form/1">c19</a>
+                              </button>
+                              <button type="button" class="btn btn-primary">
+                                <a href="/member/1">delete</a>
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      <% }) %>
+                  <% } %>
               </tbody>
             </table>
         </div>

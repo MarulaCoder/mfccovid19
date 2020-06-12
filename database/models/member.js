@@ -1,11 +1,21 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Member = sequelize.define('Member', {
-    firstname: DataTypes.STRING,
+    firstname: {
+      type: DataTypes.STRING,
+      required: true
+    },
     middlename: DataTypes.STRING,
-    lastname: DataTypes.STRING,
+    lastname: {
+      type: DataTypes.STRING,
+      required: true
+    },
     email: DataTypes.STRING,
-    cellphone: DataTypes.STRING,
+    cellphone: {
+      type: DataTypes.STRING,
+      required: true
+    },
     isadmin: DataTypes.BOOLEAN
   }, {});
   Member.associate = function(models) {

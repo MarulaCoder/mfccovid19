@@ -2,7 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-const bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 var logger = require('morgan');
 var fs = require('fs');
 
@@ -23,6 +23,7 @@ var app = express();
 //var db = mongoose.connection;
 //db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+/*
 // set up postgres database
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('postgres://njkxorohczavfz:4e6697befe3ddeff41bb4cd4e60cc81cfa689bf3efff57abecc461a4b7ca6826@ec2-54-247-89-181.eu-west-1.compute.amazonaws.com:5432/datkb2031uh5mr');
@@ -35,6 +36,8 @@ sequelize
     .catch(err => {
         console.error('Unable to connect to the database:', err);
     });
+
+*/
 
 // create a write stream (in append mode)
 var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });

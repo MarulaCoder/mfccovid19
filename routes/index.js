@@ -34,6 +34,8 @@ router.get('/member/all', memberController.getAllMembers);
 
 router.get('/member/:id', memberController.findOneMember);
 
+router.get('/member/delete/:id', memberController.deleteMember);
+
 router.post('/covid19/form/submit', memberController.formSubmit);
 
 //router.put('/member/:id', memberController.updateMember);

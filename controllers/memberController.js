@@ -86,7 +86,7 @@ exports.createMember = async (req, res) => {
     await transaction.commit();
 
     //res.json(newEmployee)
-    res.redirect('/member/all', { message: "Member " + member.firstname + " " + member.lastname + " added succesfully."});
+    res.redirect('/member/all');
 
   } 
   catch(error) 
@@ -179,9 +179,28 @@ exports.updateMember = (req, res) =>
 };
 
 // Delete a Member with the specified id in the request
-exports.deleteMember = (req, res) => 
+exports.deleteMember = async (req, res) => 
 {
-  
+  const id = req.params.id;
+
+  await memberModel.Member.destroy({
+    where: { id: id }
+  })
+  .then(num => 
+    {
+    if (num == 1) 
+    {
+      res.redirect('/member/all');
+    } else 
+    {
+      res.render('error', { message: 'Failed to delete member.'});
+    }
+  })
+  .catch(err => 
+    {
+    console.log(err.message);
+    res.render('error', { message: 'Failed to delete member.'});
+  });
 };
 
 // Delete all Member from the database.

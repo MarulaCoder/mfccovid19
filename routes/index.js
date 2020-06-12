@@ -32,15 +32,15 @@ router.post('/member/add/new', memberController.createMember);
 
 router.get('/member/all', memberController.getAllMembers);
 
-//router.get('/member/:id', memberController.findOneMember);
+router.get('/member/:id', memberController.findOneMember);
+
+router.post('/covid19/form/submit', memberController.formSubmit);
 
 //router.put('/member/:id', memberController.updateMember);
 
 //router.delete('/member/:id', memberController.deleteMember);
 
 //router.delete('/member/all', memberController.deleteAllMembers);
-
-//router.post('/covid19/submit', fileController.saveInfoToDb);
 
 
 

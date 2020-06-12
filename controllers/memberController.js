@@ -1,17 +1,45 @@
 const memberModel = require("../database/models");
 //const addressModel = require("../database/models").Address;
-const { body } = require("express-validator");
+//const { body } = require("express-validator");
+//const { where } = require("sequelize/types");
 
 //const mf = require('../memcached/memcached');
 
+/*
 var memjs = require('memjs');
 var mcClient = memjs.Client.create(process.env.MEMCACHIER_SERVERS, {
   failover: true,  // default: false
   timeout: 1,      // default: 0.5 (seconds)
   keepAlive: true  // default: false
 });
+*/
 
-
+const covid19Questions = [
+	{
+		id: 1,
+		question: "Have you travelled in the last 7 days"
+	},
+	{
+		id: 2,
+		question: "Did you attend a funeral in the last 7 days"
+	},
+	{
+		id: 3,
+		question: "Have you been in contact with a COVID-19 patient"
+	},
+	{
+		id: 4,
+		question: "Have you visited a doctor or hospital in the last 7 days"
+	},
+	{
+		id: 5,
+		question: "Have you tested for COVID-19 in the last 7 days"
+	},
+	{
+		id: 6,
+		question: "Is anyone in your family affected with COVID-19"
+	},
+];
 
 
 // Create and Save a new Member
@@ -27,8 +55,8 @@ exports.createMember = async (req, res) => {
       email: req.body.email,
       cellphone: req.body.cellphone,
       isadmin: false,
-      createdAt: Date.now(),
-      updatedAt: Date.now()
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
 
     transaction = await memberModel.sequelize.transaction();
@@ -40,14 +68,14 @@ exports.createMember = async (req, res) => {
       streetnumber: req.body.streetnumber,
       streetname: req.body.streetname,
       unitnumber: req.body.unitnumber,
-      complex: req.body.complex,
+      complexname: req.body.complexname,
       suburb: req.body.suburb,
       city: req.body.city,
       province: req.body.province,
       code: req.body.code,
       memberId: newMember.id,
-      createdAt: Date.now(),
-      updatedAt: Date.now()
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
 
     await memberModel.Address.create(address, {
@@ -57,90 +85,91 @@ exports.createMember = async (req, res) => {
     //commit changes
     await transaction.commit();
 
-    //update cache with new member
-    var allMembers = await memberModel.Member.findAll();
-    //mcClient.set('membersdata', 300, JSON.stringify(allMembers));
-    mcClient.set('membersdata', JSON.stringify(allMembers), {expires:300}, (err, val) => 
-        {
-          /* handle error */
-          if(err != null) {
-            console.log('Error setting value: ' + err);
-          }
-        });
-
     //res.json(newEmployee)
-    res.render('members', {memberResult: newMember, message: "Member " + member.firstname + " " + member.lastname + " added succesfully."});
+    res.redirect('/member/all', { message: "Member " + member.firstname + " " + member.lastname + " added succesfully."});
 
   } 
   catch(error) 
   {
+    // HANDLE THE ERROR AS YOU MANAGE IN YOUR PROJECT
     if(transaction) {
       await transaction.rollback()
     }
     console.log(error.message);
     res.render('error', { message: 'Failed to create member.' });
-    // HANDLE THE ERROR AS YOU MANAGE IN YOUR PROJECT
   }
 };
 
-// Retrieve all Member from the database.
-exports.getAllMembers = async (req, res) => 
+
+// Retrieve all Members from the database.
+exports.getAllMembers = async (req, res, next) => 
 {
-  try 
+  var allMembers = {};
+  try
   {
-    const allMembers = "";
-    var key = 'membersdata';
-    /*
-    mf.getInstance().get(key, (error, value) => {
-      if (error) {
-        // handle error here
-        console.log(error.message);
-      }else{
-        // we have a value
-        console.log(`The value is ${value}`); 
-      }
-    });
-    */
-
-   mcClient.get('membersdata', async (err, result) => 
+    allMembers = await memberModel.Member.findAll();
+    if(allMembers != null)
     {
-      if (err == null && result != null) 
-      {
-        allMembers = result;
-      }
-      else
-      {
-        allMembers = await memberModel.Member.findAll();
-        mcClient.set('membersdata', JSON.stringify(allMembers), {expires:300}, (err, val) => 
-        {
-          /* handle error */
-          if(err != null) {
-            console.log('Error setting value: ' + err);
-          }
-        });
-        //mc.set(prime_key, '' + prime, {expires:0}, function(err, val){/* handle error */})
-      }
-
-      //res.json(newEmployee)
       res.render('members', {memberResult: allMembers, message: "All members retrieved succesfully."});
-
-    });
-  } 
-  catch(error) 
+    }
+    else
+    {
+      res.render('members', {memberResult: null, message: "No members found."});
+    }
+  }
+  catch
   {
+    // HANDLE THE ERROR AS YOU MANAGE IN YOUR PROJECT
     if(transaction) {
-      await transaction.rollback()
+      await transaction.rollback();
     }
     console.log(error.message);
     res.render('error', { message: 'Failed to get all members.' });
-    // HANDLE THE ERROR AS YOU MANAGE IN YOUR PROJECT
   }
 };
 
 // Find a single Member with an id
-exports.findOneMember = (req, res) => 
+exports.findOneMember = async (req, res) => 
 {
-  
+  const memId = req.params.id;
+  var memberData;
+
+  await memberModel.Address.findOne({
+    where: {memberId:memId},
+    include: [
+      {
+        model: memberModel.Member,
+        as: 'member',
+        include: [
+          {
+            model: memberModel.Covid19Answer,
+            as: 'covid19answers'
+          }
+        ]
+      }
+    ]
+  })
+  .then(aData => {
+    memberData = aData;
+    //create answers
+    var covid19Ans = [];
+    memberData.member.covid19answers.forEach(element => {
+      covid19Questions.forEach(ques => {
+        if(ques.id == element.questionId)
+        {
+          covid19Ans.push({
+            c19Ques: ques.question,
+            c19ans: element.answer
+          });
+        }
+      });
+    });
+    res.render('member-view', {memberResult: memberData, memberAddrResult: covid19Ans, message: "Member retrieved succesfully."});
+  })
+  .catch(err => {
+    console.log(err.message);
+    res.render('error', { message: 'Failed to get member details.'});
+  })
 };
 
 // Update a Member by the id in the request
@@ -159,4 +188,79 @@ exports.deleteMember = (req, res) =>
 exports.deleteAllMembers = (req, res) => 
 {
   
+};
+
+// Submits covid19 form from the database.
+exports.formSubmit = async (req, res) => 
+{
+  let transaction;
+  try 
+  {
+    const memId = req.body.memId;
+    transaction = await memberModel.sequelize.transaction();
+
+    const newMember = await memberModel.Covid19Answer.bulkCreate([
+      {
+        questionId: 1,
+        memberId: memId,
+        answer: req.body.covid19Q1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        questionId: 2,
+        memberId: memId,
+        answer: req.body.covid19Q2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        questionId: 3,
+        memberId: memId,
+        answer: req.body.covid19Q3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        questionId: 4,
+        memberId: memId,
+        answer: req.body.covid19Q4,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        questionId: 5,
+        memberId: memId,
+        answer: req.body.covid19Q5,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        questionId: 6,
+        memberId: memId,
+        answer: req.body.covid19Q6,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ], 
+    {
+      transaction: transaction
+    })
+
+    //commit changes
+    await transaction.commit();
+
+    //res.json(newEmployee)
+    res.redirect('/member/all');
+
+  } 
+  catch(error) 
+  {
+    // HANDLE THE ERROR AS YOU MANAGE IN YOUR PROJECT
+    if(transaction) {
+      await transaction.rollback()
+    }
+    console.log(error.message);
+    res.render('error', { message: 'Failed to save form data.' });
+  }
 };

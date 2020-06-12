@@ -20,7 +20,63 @@
         </section>
   
         <div class="container">
-          
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body p-0">
+                        
+                        <div class="row pb-5 p-5">
+                            <% if(memberResult.member !== null){ %>
+                            <div class="col-md-6">
+                                <p class="font-weight-bold mb-4">Member Information</p>
+                                <p class="mb-1"><span class="text-muted">Name: </span> <%= memberResult.member.firstname + " " + memberResult.lastname %></p>
+                                
+                                <p class="mb-1"><span class="text-muted">Cell: </span> <%= memberResult.member.cellphone %></p>
+                                <p class="mb-1"><span class="text-muted">Email: </span> <%= memberResult.member.email %></p>
+                            </div>
+                            <% } %>
+                            <% if(memberResult !== null){ %>
+                            <div class="col-md-6 text-right">
+                                <p class="font-weight-bold mb-4">Address</p>
+                                <p class="mb-1"><span class="text-muted">Str No: </span> <%= memberResult.streetnumber %></p>
+                                <p class="mb-1"><span class="text-muted">Str Name: </span> <%= memberResult.streetname %></p>
+                                <p class="mb-1"><span class="text-muted">Unit No: </span> <%= memberResult.unitnumber %></p>
+                                <p class="mb-1"><span class="text-muted">Complex: </span> <%= memberResult.complex %></p>
+                                <p class="mb-1"><span class="text-muted">Suburb: </span> <%= memberResult.suburb %></p>
+                                <p class="mb-1"><span class="text-muted">City: </span> <%= memberResult.city %></p>
+                                <p class="mb-1"><span class="text-muted">Code: </span> <%= memberResult.code %></p>
+                            </div>
+                            <% } %>
+                        </div>
+                        
+                        <div class="row p-5">
+                            <div class="col-md-12">
+                                <table class="table table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-0 text-uppercase small font-weight-bold col-sm-8">Question</th>
+                                            <th class="border-0 text-uppercase small font-weight-bold col-sm-4">Answer</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <% if (memberAddrResult.length) { %>
+                                        <% memberAddrResult.forEach((member) => { %>
+                                        <tr>
+                                          <td><%= member.c19Ques %></td>
+                                          <td><%= member.c19ans %></td>
+                                        </tr>
+                                        <% }) %>
+                                      <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-light mt-5 mb-5 text-center small">by : <a class="text-light" target="_blank" href="http://totoprayogo.com">totoprayogo.com</a></div>
         </div>
 
         <%- include('partials/footer') %>

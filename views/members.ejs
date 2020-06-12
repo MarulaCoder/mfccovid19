@@ -40,15 +40,16 @@
                           <td><%= member.email %></td>
                           <td><%= member.cellphone %></td>
                           <td>
-                            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                            <div class="btn-group btn-group-sm" role="group" aria-label="Members">
                               <button type="button" class="btn btn-primary">
-                                <a href="/member/1">view</a>
+                                <a href="/member/<%= member.id%>">view</a>
+                              </button>
+                              <button type="button" class="btn btn-primary showModalBtn" data-memId="<%= member.id%>" data-toggle="modal" id="showModalBtn" data-target="#exampleModalCenter">
+                                <a>c19</a>
                               </button>
                               <button type="button" class="btn btn-primary">
-                                <a href="/member/form/1">c19</a>
-                              </button>
-                              <button type="button" class="btn btn-primary">
-                                <a href="/member/1">delete</a>
+                                <a href="/member/<%= member.id%>">
+                                  <i class="far fa-trash-alt fa-xs"></i></a>
                               </button>
                             </div>
                           </td>
@@ -59,7 +60,121 @@
             </table>
         </div>
 
-        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Covid19 Questionaire</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form action="/covid19/form/submit" id="covid19form" method="post" class="needs-validation" novalidate>
+                  
+                  <!-- // Add Extra Fields // -->
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q1">Have you travelled in the last 7 days*</label>
+                      <select class="custom-select" id="covid19Q1" name="covid19Q1" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q2">Did you attend a funeral in the last 7 days*</label>
+                      <select class="custom-select" id="covid19Q2" name="covid19Q2" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q3">Have you been in contact with a COVID-19 patient*</label>
+                      <select class="custom-select" id="covid19Q3" name="covid19Q3" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q4">Have you visited a doctor or hospital in the last 7 days*</label>
+                      <select class="custom-select" id="covid19Q4" name="covid19Q4" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q5">Have you tested for COVID-19 in the last 7 days*</label>
+                      <select class="custom-select" id="covid19Q5" name="covid19Q5" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="covid19Q6">Is anyone in your family affected with COVID-19*</label>
+                      <select class="custom-select" id="covid19Q6" name="covid19Q6" required>
+                        <option selected disabled value="">Choose...</option>
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                      <div class="valid-feedback">
+                        Looks good!
+                      </div>
+                    </div>
+                  </div>
+                
+                  <!-- // Add Extra Fields // -->
+                
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="agreeTerms" required>
+                      <label class="form-check-label" for="agreeTerms">
+                        Agree to terms and conditions
+                      </label>
+                      <div class="invalid-feedback">
+                        You must agree before submitting.
+                      </div>
+                    </div>
+                  </div>
+                  <input type="hidden" id="memId" name="memId" />
+                  <button class="btn btn-primary float-right" type="submit">Submit Questionaire</button>
+                </form>
+              </div>
+              <!--
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
     
         <%- include('partials/footer') %>
 
@@ -70,12 +185,15 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-
-
+      debugger;
       $('#sidebarCollapse').on('click', function() {
         $('#sidebar, #content').toggleClass('active');
         $('.collapse.in').toggleClass('in');
         $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+      });
+
+      $('.showModalBtn').on('click', function(){
+        $('#memId').val($(this).data('memid'));
       });
     });
   </script>
